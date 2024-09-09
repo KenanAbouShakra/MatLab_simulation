@@ -1,2 +1,2 @@
 # MatLab_simulation
-Motion planning
+Motion planning simulation
