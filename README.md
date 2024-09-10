@@ -1,5 +1,6 @@
 # MatLab_simulation
-Motion planning simulation
+Motion planning simulation.
+
 Objective: The purpose of this project is to simulate a mobile robot navigating through a complex environment filled with obstacles such as walls and shelves. The robot's goal is to travel from a starting position to a designated goal while avoiding collisions.
 
 Environment Setup: The simulation environment consists of:
