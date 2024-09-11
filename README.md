@@ -25,6 +25,7 @@ The goal of this project is to simulate the motion planning of a mobile robot na
 - **Strengths**: Guarantees the shortest path, though it can be slower than heuristic-based methods.
 - **Outcome**: Dijkstra’s algorithm found the optimal path by checking all possible nodes, though it was slower than A*.
 - **2D Path**: ![Dijkstra 2D](resources/images/dijkstra2D.jpg)
+- **3D Path**: ![Dijkstra 3D](resources/images/dijkstra3D.jpg)
 
 #### Probabilistic Roadmap (PRM):
 - **Description**: PRM is a sampling-based algorithm that randomly generates nodes in the environment and connects them to form a roadmap. The robot then follows the roadmap from start to goal.
