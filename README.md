@@ -17,21 +17,21 @@ The goal of this project is to simulate the motion planning of a mobile robot na
 - **Description**: A* is a graph-based search algorithm that uses a combination of the shortest known path (g-cost) and a heuristic estimate (h-cost) to find the optimal path.
 - **Strengths**: Efficient in finding the shortest path and uses heuristics for faster convergence.
 - **Outcome**: A* successfully found a collision-free path by efficiently evaluating each node's cost.
-- **2D Path**: ![A* 2D](./resources/images/a_star2D.png)
-- **3D Path**: ![A* 3D](./resources/images/a_star3D.png)
+- **2D Path**: ![A* 2D](resources/images/a_star2D.png)
+- **3D Path**: ![A* 3D](resources/images/a_star3D.png)
 
 #### Dijkstra’s Algorithm:
 - **Description**: Dijkstra’s algorithm finds the shortest path by exploring all possible routes from the start to the goal node, assigning each node a distance value and choosing the smallest distance until the goal is reached.
 - **Strengths**: Guarantees the shortest path, though it can be slower than heuristic-based methods.
 - **Outcome**: Dijkstra’s algorithm found the optimal path by checking all possible nodes, though it was slower than A*.
-- **2D Path**: ![Dijkstra 2D](./resources/images/dijkstra2D.png)
+- **2D Path**: ![Dijkstra 2D](resources/images/dijkstra2D.png)
 
 #### Probabilistic Roadmap (PRM):
 - **Description**: PRM is a sampling-based algorithm that randomly generates nodes in the environment and connects them to form a roadmap. The robot then follows the roadmap from start to goal.
 - **Strengths**: Works well in high-dimensional spaces and environments with many obstacles.
 - **Outcome**: PRM successfully generated a roadmap, but its performance is highly dependent on the number of nodes and the connection distance.
-- **2D Path**: ![PRM 2D](./resources/images/prm2D.png)
-- **3D Path**: ![PRM 3D](./resources/images/prm3D.png)
+- **2D Path**: ![PRM 2D](resources/images/prm2D.png)
+- **3D Path**: ![PRM 3D](resources/images/prm3D.png)
 
 ### Visualization:
 - **2D Map**: Shows the occupancy grid and the robot’s movement plan for each algorithm.
