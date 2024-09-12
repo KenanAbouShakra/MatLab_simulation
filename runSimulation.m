@@ -10,10 +10,10 @@ function runSimulation(algorithm)
     % Initialize a robot scenario with an update rate of 5 Hz
     scenario = robotScenario(UpdateRate=5);
 
-    % Add a plane to represent the ground surface
-    addMesh(scenario, "Plane", Position=[5 5 0], Size=[10 10], Color=[0.6 0.6 0.6]);
+    % Add a plane to represent the ground surface with a light grey color
+    addMesh(scenario, "Plane", Position=[5 5 0], Size=[10 10], Color=[0.9 0.9 0.9]);
 
-    % Add obstacles to the environment
+    % Add static obstacles to the environment
     addMesh(scenario, "Box", Position=[2 2 1], Size=[0.5 2 2], Color=[0.8 0.2 0.2], IsBinaryOccupied=true);
     addMesh(scenario, "Box", Position=[4 2 1], Size=[0.5 2 2], Color=[0.8 0.2 0.2], IsBinaryOccupied=true);
     addMesh(scenario, "Box", Position=[6 6 1], Size=[1 0.5 2], Color=[0.9 0.5 0.1], IsBinaryOccupied=true);
@@ -24,9 +24,9 @@ function runSimulation(algorithm)
     addMesh(scenario, "Box", Position=[8 8 0.5], Size=[0.5 0.5 0.5], Color=[0 0.8 0]);
 
     % Display the 3D scenario
-    [ax, plotFrames] = show3D(scenario);
-    lightangle(-45,30);  
-    view(60,50);        
+    [ax3D, plotFrames] = show3D(scenario);
+    lightangle(-45, 30);  
+    view(60, 50);        
 
     % Create a binary occupancy map from the scenario
     map = binaryOccupancyMap(scenario, GridOriginInLocal=[-2 -2], MapSize=[10 10], MapHeightLimits=[0 3]);
@@ -57,12 +57,19 @@ function runSimulation(algorithm)
     if isempty(waypoints)
         disp('No valid path found.');
     else
+    % Use the calculateCost and calculatePathLength functions
+    pathCost = calculateCost(waypoints);
+    pathLength = calculatePathLength(waypoints);
+    
+    % Display or store the cost and length as needed
+    disp(['Path Cost: ', num2str(pathCost)]);
+    disp(['Path Length: ', num2str(pathLength)]);
         % Add a Z-coordinate (0) to the waypoints for 3D navigation
-        waypoints3DToGoal = [waypoints, zeros(size(waypoints,1),1)];
+        waypoints3DToGoal = [waypoints, zeros(size(waypoints, 1), 1)];
 
         % Generate a trajectory for the robot to follow based on the waypoints
         totalTime = size(waypoints, 1) * 2; 
-        trajToGoal = waypointTrajectory(SampleRate=10, TimeOfArrival=linspace(0, totalTime, size(waypoints,1)), Waypoints=waypoints3DToGoal, ReferenceFrame="ENU");
+        trajToGoal = waypointTrajectory(SampleRate=10, TimeOfArrival=linspace(0, totalTime, size(waypoints, 1)), Waypoints=waypoints3DToGoal, ReferenceFrame="ENU");
 
         % Plot the occupancy map with obstacles and path in 2D
         figure;
@@ -77,6 +84,9 @@ function runSimulation(algorithm)
         xlim([0 10]); 
         ylim([0 10]);  
         grid on;      
+
+        % Add the robot as a marker in the 2D plot
+        hRobot2D = plot(startPosition(1), startPosition(2), 'ro', 'MarkerSize', 10, 'MarkerFaceColor', 'red'); 
         hold off;
 
         % Load the Husky robot model and associate it with the trajectory
@@ -85,12 +95,12 @@ function runSimulation(algorithm)
 
         % Visualize the robot's path in 3D
         figure;
-        [ax, plotFrames] = show3D(scenario);
+        [ax3D, plotFrames] = show3D(scenario);
         lightangle(-45,30); 
         view(60,50);        
         title('Robot Path in 3D');
 
-        % Plot the 3D path of the robot in a distinct color (green)
+        % Plot the 3D path of the robot
         hold on;
         plot3(waypoints3DToGoal(:,1), waypoints3DToGoal(:,2), waypoints3DToGoal(:,3), '-o', 'LineWidth', 2, 'Color', 'green');
         hold off;
@@ -99,11 +109,18 @@ function runSimulation(algorithm)
         setup(scenario);
         r = rateControl(10);
 
-        % Run the simulation loop and stop when the robot reaches the goal
+        % Run the simulation loop for both 3D and 2D display
         while advance(scenario)
-            show3D(scenario, Parent=ax, FastUpdate=true); 
+            % Update 2D plot with the robot's current position
+            currentPose = read(platform);
+            set(hRobot2D, 'XData', currentPose(1), 'YData', currentPose(2));
+            drawnow;
+
+            % Update the 3D view
+            show3D(scenario, Parent=ax3D, FastUpdate=true); 
             waitfor(r);  
-            currentPose = read(platform);  
+
+            % Check if the robot reached the goal
             if norm(currentPose(1:2) - goalPosition) < 0.1  
                 disp('Robot has reached the goal. Stopping simulation.');
                 break;
@@ -111,3 +128,4 @@ function runSimulation(algorithm)
         end
     end
 end
+
