@@ -128,4 +128,3 @@ function runSimulation(algorithm)
         end
     end
 end
-
