@@ -19,6 +19,8 @@ function runSimulation(algorithm)
     addMesh(scenario, "Box", Position=[6 6 1], Size=[1 0.5 2], Color=[0.9 0.5 0.1], IsBinaryOccupied=true);
     addMesh(scenario, "Box", Position=[8 4 1], Size=[0.5 3 2], Color=[0.2 0.8 0.8], IsBinaryOccupied=true);
     addMesh(scenario, "Box", Position=[3 7 1], Size=[1 0.5 2], Color=[0.9 0.2 0.5], IsBinaryOccupied=true);
+    addMesh(scenario, "Box", Position=[2 3 1], Size=[0.7 2.2 2], Color=[0.6 0.1 0.2], IsBinaryOccupied=true);
+    addMesh(scenario, "Box", Position=[5 6 1], Size=[1.2 3 2], Color=[0.3 0.7 0.3], IsBinaryOccupied=true);
 
     % Add a goal point in the environment
     addMesh(scenario, "Box", Position=[8 8 0.5], Size=[0.5 0.5 0.5], Color=[0 0.8 0]);
