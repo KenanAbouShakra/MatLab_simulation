@@ -108,6 +108,19 @@ function runSimulation(algorithm)
         % Set up the simulation rate to control the update speed
         setup(scenario);
         r = rateControl(10);
+        % Use Bezier curve to smooth the path
+        bezierPath = bezierCurvePath(waypoints);
+
+        % Plot the smooth Bezier curve
+        figure;
+        plot(bezierPath(:, 1), bezierPath(:, 2), 'r-', 'LineWidth', 2);
+        hold on;
+        plot(waypoints(:, 1), waypoints(:, 2), 'bo-', 'MarkerSize', 5);
+        title('Bezier Curve Smoothed Path');
+        xlabel('X');
+        ylabel('Y');
+        legend('Bezier Path', 'Original Waypoints');
+        grid on;
 
         % Run the simulation loop for both 3D and 2D display
         while advance(scenario)

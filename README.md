@@ -26,6 +26,8 @@ The goal of this project is to simulate the motion planning of a mobile robot na
 - **Outcome**: Dijkstra’s algorithm found the optimal path by checking all possible nodes, though it was slower than A*.
 - **2D Path**: ![Dijkstra 2D](resources/images/dijkstra2D.jpg)
 - **3D Path**: ![Dijkstra 3D](resources/images/dijkstra3D.jpg)
+- **Bezier Curve**: ![Dijkstra 2D](resources/images/BezierV_dijkstra.jpg)
+- **Bezier Curve**: ![Dijkstra 2D](resources/images/BezierP_dijkstra.jpg)
 
 #### Probabilistic Roadmap (PRM):
 - **Description**: PRM is a sampling-based algorithm that randomly generates nodes in the environment and connects them to form a roadmap. The robot then follows the roadmap from start to goal.
@@ -33,6 +35,8 @@ The goal of this project is to simulate the motion planning of a mobile robot na
 - **Outcome**: PRM successfully generated a roadmap, but its performance is highly dependent on the number of nodes and the connection distance.
 - **2D Path**: ![PRM 2D](resources/images/prm2D.jpg)
 - **3D Path**: ![PRM 3D](resources/images/prm3D.jpg)
+- **Bezier Curve**: ![Dijkstra 2D](resources/images/BezierV_prm.jpg)
+- **Bezier Curve**: ![Dijkstra 2D](resources/images/BezierP_prm.jpg)
 
 ### Visualization:
 - **2D Map**: Shows the occupancy grid and the robot’s movement plan for each algorithm.
